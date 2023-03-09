@@ -6,20 +6,23 @@
     <session-factory>
         <!-- Настройки соединения с базой данных -->
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost/test</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/properties</property>
+        <property name="hibernate.connection.username">Yaman-LP</property>
+        <property name="hibernate.connection.password">Tamam1008!</property>
 
         <!-- Настройки пула соединений -->
-        <property name="hibernate.connection.pool_size">1</property>
+        <property name="hibernate.connection.pool_size">5</property>
 
         <!-- Настройки диалекта SQL -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
         <!-- Настройки автоматической генерации схемы таблиц -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- Маппинг сущностей -->
-        <mapping class="com.example.User"/>
+        <mapping class="model.User"/>
+        <mapping class="model.Role"/>
+        <mapping class="model.Property"/>
+<!--        <mapping class="model"/>-->
     </session-factory>
 </hibernate-configuration>

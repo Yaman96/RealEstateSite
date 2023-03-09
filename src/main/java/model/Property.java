@@ -1,11 +1,10 @@
 package model;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,44 +16,90 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NonNull
-    private int price;
+    @Column(name = "external_id", unique = true)
+    @NotNull
+    private long externalID;
 
-    @NonNull
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private PropertyType type;
 
-    @NonNull
-    private int bedrooms;
+    @Column(name = "price")
+    @NotNull
+    private int price;
 
-    @NonNull
-    private int bathrooms;
+    @Column(name = "city")
+    @NotNull
+    private String city;
 
-    @NonNull
-    private int salon;
+    @Column(name = "district")
+    @NotNull
+    private String district;
 
-    @NonNull
-    private int area;
+    @Column(name = "neighborhood")
+    @NotNull
+    private String neighborhood;
 
-    @NonNull
-    private int floor;
-
-    @NonNull
-    private String description;
-
-    @NonNull
+    @ElementCollection
+    @Column(name = "photos")
     private List<String> photos;
 
-    @NonNull
-    private String contactName;
+    //    @Column(name = "bedrooms")
+//    @NotNull
+//    private int bedrooms;
+//
+//    @Column(name = "bathrooms")
+//    @NotNull
+//    private int bathrooms;
+//
+//    @Column(name = "salon")
+//    @NotNull
+//    private int salon;
+//
+//    @Column(name = "area_gross")
+//    @NotNull
+//    private int areaGross;
+//
+//    @Column(name = "area_net")
+//    @NotNull
+//    private int areaNet;
+//
+//    @Column(name = "floor")
+//    @NotNull
+//    private int floor;
+//
+//    @Column(name = "american_kitchen")
+//    @NotNull
+//    private boolean hasAmericanKitchen;
+//
+//    @Column(name = "master_room")
+//    @NotNull
+//    private boolean hasMasterRoom;
+//@Column(name = "address")
+//@NotNull
+//private String address;
+//@Column(name = "contact_name")
+//@NotNull
+//private String contactName;
+//
+//    @Column(name = "contact_phone")
+//    @NotNull
+//    private String contactPhone;
+//
+//    @Column(name = "contact_email")
+//    @NotNull
+//    private String contactEmail;
 
-    @NonNull
-    private String contactPhone;
+    //    @Column(name = "posting_date")
+//    @NotNull
+//    private LocalDate postingDate;
 
-    private String contactEmail;
+    //    @Column(name = "location")
+//    @NotNull
+//    private String location;
 
-    private LocalDate postingDate;
-
-    private String location;
-
-    private String address;
+    //    @Column(name = "description")
+//    @NotNull
+//    private String description;
 }
