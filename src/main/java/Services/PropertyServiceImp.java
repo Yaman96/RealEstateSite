@@ -1,5 +1,6 @@
 package Services;
 
+import jakarta.persistence.criteria.Predicate;
 import model.Property;
 import org.hibernate.Criteria;
 
@@ -27,7 +28,7 @@ public class PropertyServiceImp implements PropertyService{
     }
 
     @Override
-    public List<Property> getWithFilter(Criteria criteria) {
+    public List<Property> getWithFilter(Predicate criteria) {
         return null;
     }
 }

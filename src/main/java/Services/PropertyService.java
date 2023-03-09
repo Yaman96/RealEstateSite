@@ -1,5 +1,6 @@
 package Services;
 
+import jakarta.persistence.criteria.Predicate;
 import model.Property;
 import org.hibernate.Criteria;
 
@@ -11,5 +12,5 @@ public interface PropertyService {
     List<Property> getAll();
     void update(Property property);
     void delete(Property property);
-    List<Property> getWithFilter(Criteria criteria);
+    List<Property> getWithFilter(Predicate criteria);
 }
