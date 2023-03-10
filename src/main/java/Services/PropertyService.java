@@ -12,5 +12,6 @@ public interface PropertyService {
     List<Property> getAll();
     void update(Property property);
     void delete(Property property);
+    void save(Property property);
     List<Property> getWithFilter(Predicate criteria);
 }

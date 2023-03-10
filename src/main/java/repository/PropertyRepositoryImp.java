@@ -1,18 +1,13 @@
 package repository;
 
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Expression;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import model.Property;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.criteria.JpaCriteriaQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -23,11 +18,12 @@ public class PropertyRepositoryImp implements PropertyRepository {
 
     @Override
     public List<Property> findAll() {
-        List<Property> properties = new ArrayList<>();
+        List<Property> properties;
         try (Session session = hibernate.getSessionFactory().openSession()) {
             CriteriaQuery<Property> query = session.getCriteriaBuilder().createQuery(Property.class);
             query.from(Property.class);
-            return session.createQuery(query).getResultList();
+            properties = session.createQuery(query).getResultList();
+            return properties;
         }
     }
 
@@ -41,7 +37,9 @@ public class PropertyRepositoryImp implements PropertyRepository {
     @Override
     public void save(Property property) {
         try (Session session = hibernate.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
             session.persist(property);
+            transaction.commit();
         }
     }
 
@@ -62,11 +60,12 @@ public class PropertyRepositoryImp implements PropertyRepository {
     @Override
     public List<Property> findWithFilter(Predicate criteria) {
         try(Session session = hibernate.getSessionFactory().openSession()) {
-            CriteriaQuery<Property> query = session.getCriteriaBuilder().createQuery(Property.class);
-            Root<Property> root = query.from(Property.class);
-            query.select(root);
-            query.where(criteria);
-            return session.createQuery(query).getResultList();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Property> cq = cb.createQuery(Property.class);
+            cq.from(Property.class);
+            cq.where(criteria);
+            TypedQuery<Property> query = session.createQuery(cq);
+            return query.getResultList();
         }
     }
 
