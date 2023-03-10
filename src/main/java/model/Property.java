@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.util.List;
 
 @Entity
@@ -45,7 +48,23 @@ public class Property {
     @Column(name = "photos")
     private List<String> photos;
 
-    //    @Column(name = "bedrooms")
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Property property = (Property) o;
+
+        return new EqualsBuilder().append(externalID, property.externalID).append(price, property.price).append(type, property.type).append(city, property.city).append(district, property.district).append(neighborhood, property.neighborhood).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(externalID).append(type).append(price).append(city).append(district).append(neighborhood).toHashCode();
+    }
+
+//    @Column(name = "bedrooms")
 //    @NotNull
 //    private int bedrooms;
 //

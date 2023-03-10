@@ -21,7 +21,7 @@ public class Application {
     public static void main(String[] args) throws IOException {
 //        ApplicationContext context = SpringApplication.run(Application.class, args);
 
-        File excel = new File("D:\\JavaProjects\\RealEstateSite\\src\\main\\resources\\test.xlsx");
+        File excel = new File("C:\\Users\\yaman\\IdeaProjects\\RealEstateSite\\src\\main\\resources\\test.xlsx");
         List<Property> properties = ExcelParser.parseExcel(excel);
 
         System.out.println(properties);
