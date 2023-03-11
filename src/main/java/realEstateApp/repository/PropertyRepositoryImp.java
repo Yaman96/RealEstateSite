@@ -1,13 +1,15 @@
-package repository;
+package realEstateApp.repository;
 
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
-import model.Property;
+import realEstateApp.model.Property;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import realEstateApp.model.PropertyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -58,14 +60,35 @@ public class PropertyRepositoryImp implements PropertyRepository {
     }
 
     @Override
-    public List<Property> findWithFilter(Predicate criteria) {
+    public List<Property> findWithFilter(String type, String maxPrice, String minPrice, String city, String district, String neighborhood) {
         try(Session session = hibernate.getSessionFactory().openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Property> cq = cb.createQuery(Property.class);
-            cq.from(Property.class);
-            cq.where(criteria);
-            TypedQuery<Property> query = session.createQuery(cq);
-            return query.getResultList();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Property> query = builder.createQuery(Property.class);
+            Root<Property> root = query.from(Property.class);
+            List<Predicate> predicates = new ArrayList<>();
+            if (type != null && !type.isEmpty()) {
+                predicates.add(builder.equal(root.get("type"), PropertyType.valueOf(type.toUpperCase())));
+            }
+            if (maxPrice != null && !maxPrice.isEmpty()) {
+                int max = Integer.parseInt(maxPrice);
+                predicates.add(builder.le(root.get("price"), max));
+            }
+            if (minPrice != null && !minPrice.isEmpty()) {
+                int min = Integer.parseInt(minPrice);
+                predicates.add(builder.ge(root.get("price"), min));
+            }
+            if (city != null && !city.isEmpty()) {
+                predicates.add(builder.equal(root.get("city"), city));
+            }
+            if (district != null && !district.isEmpty()) {
+                predicates.add(builder.equal(root.get("district"), district));
+            }
+            if (neighborhood != null && !neighborhood.isEmpty()) {
+                predicates.add(builder.equal(root.get("neighborhood"), neighborhood));
+            }
+            query.select(root).where(predicates.toArray(new Predicate[0]));
+
+            return session.createQuery(query).getResultList();
         }
     }
 

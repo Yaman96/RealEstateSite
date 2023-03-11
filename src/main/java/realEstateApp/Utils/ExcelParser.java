@@ -1,16 +1,14 @@
-package Utils;
+package realEstateApp.Utils;
 
-import Services.PropertyService;
-import model.Property;
-import model.PropertyType;
+import realEstateApp.Services.PropertyService;
+import realEstateApp.model.Property;
+import realEstateApp.model.PropertyType;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import repository.PropertyRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,7 +28,7 @@ public class ExcelParser {
     public ExcelParser() {
     }
 
-    public static ArrayList<Property> parseExcel(File excelFile) throws IOException {
+    public static ArrayList<Property> parseExcel(File excelFile) {
         ArrayList<Property> properties = new ArrayList<>();
         try (FileInputStream inputStream = new FileInputStream(excelFile);
              XSSFWorkbook workbook = new XSSFWorkbook(inputStream)) {
@@ -62,6 +60,9 @@ public class ExcelParser {
             }
 
             System.out.println(checkExcelFileColumnOrder(workbook));
+        } catch (IOException e) {
+            System.err.println("Error occurred while reading file");
+            e.printStackTrace();
         }
         return properties;
     }

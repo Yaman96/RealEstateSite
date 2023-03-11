@@ -1,6 +1,6 @@
-package repository;
+package realEstateApp.repository;
 
-import model.User;
+import realEstateApp.model.User;
 
 import java.util.List;
 

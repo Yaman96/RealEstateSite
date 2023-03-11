@@ -1,4 +1,4 @@
-package repository;
+package realEstateApp.repository;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

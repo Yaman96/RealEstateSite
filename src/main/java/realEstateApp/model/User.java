@@ -1,4 +1,4 @@
-package model;
+package realEstateApp.model;
 
 import lombok.Getter;
 import lombok.Setter;

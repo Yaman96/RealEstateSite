@@ -1,8 +1,8 @@
-package repository;
+package realEstateApp.repository;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
-import model.Property;
-import org.hibernate.Criteria;
+import realEstateApp.model.Property;
 
 import java.util.List;
 
@@ -15,6 +15,6 @@ public interface PropertyRepository {
     void update(Property property);
     void delete(Property property);
 
-    List<Property> findWithFilter(Predicate criteria);
+    List<Property> findWithFilter(String type, String maxPrice, String minPrice, String city, String district, String neighborhood);
 
 }
