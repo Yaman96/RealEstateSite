@@ -44,8 +44,8 @@ public class PropertyServiceImp implements PropertyService {
     }
 
     @Override
-    public List<Property> getWithFilter(String type, String maxPrice, String minPrice, String city, String district, String neighborhood) {
-        return propertyRepository.findWithFilter(type, maxPrice, minPrice, city, district, neighborhood);
+    public List<Property> getWithFilter(String type, String maxPrice, String minPrice, String rooms, String district, String neighborhood) {
+        return propertyRepository.findWithFilter(type, maxPrice, minPrice, rooms, district, neighborhood);
     }
 
     @Override
@@ -53,16 +53,12 @@ public class PropertyServiceImp implements PropertyService {
             List<Property> propertiesFromFile = ExcelParser.parseExcel(file);
             List<Property> propertiesFromDB = propertyRepository.findAll();
 
-            List<Property> uniqPropertySet = new ArrayList<>(propertiesFromFile);
-            boolean isDB_Changed = uniqPropertySet.removeAll(propertiesFromDB);
+            List<Property> uniqPropertyList = new ArrayList<>(propertiesFromFile);
+            uniqPropertyList.removeAll(propertiesFromDB);
 
-            for (Property property : uniqPropertySet) {
+            for (Property property : uniqPropertyList) {
                 propertyRepository.save(property);
             }
 
-            if (isDB_Changed)
-                System.out.println("Database has been changed.");
-            else
-                System.out.println("No changes in database.");
     }
 }

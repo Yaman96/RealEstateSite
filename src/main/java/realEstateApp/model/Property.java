@@ -1,5 +1,7 @@
 package realEstateApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +18,7 @@ import java.util.List;
 public class Property {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "external_id", unique = true)
@@ -32,9 +34,9 @@ public class Property {
     @NotNull
     private int price;
 
-    @Column(name = "city")
+    @Column(name = "rooms")
     @NotNull
-    private String city;
+    private String rooms;
 
     @Column(name = "district")
     @NotNull
@@ -44,8 +46,9 @@ public class Property {
     @NotNull
     private String neighborhood;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Column(name = "photos")
+    @JsonProperty("photos")
     private List<String> photos;
 
     @Override
@@ -56,12 +59,12 @@ public class Property {
 
         Property property = (Property) o;
 
-        return new EqualsBuilder().append(externalID, property.externalID).append(price, property.price).append(type, property.type).append(city, property.city).append(district, property.district).append(neighborhood, property.neighborhood).isEquals();
+        return new EqualsBuilder().append(externalID, property.externalID).append(price, property.price).append(type, property.type).append(rooms, property.rooms).append(district, property.district).append(neighborhood, property.neighborhood).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(externalID).append(type).append(price).append(city).append(district).append(neighborhood).toHashCode();
+        return new HashCodeBuilder(17, 37).append(externalID).append(type).append(price).append(rooms).append(district).append(neighborhood).toHashCode();
     }
 
 //    @Column(name = "bedrooms")

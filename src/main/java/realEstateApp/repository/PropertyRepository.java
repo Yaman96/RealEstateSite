@@ -15,6 +15,6 @@ public interface PropertyRepository {
     void update(Property property);
     void delete(Property property);
 
-    List<Property> findWithFilter(String type, String maxPrice, String minPrice, String city, String district, String neighborhood);
+    List<Property> findWithFilter(String type, String maxPrice, String minPrice, String rooms, String district, String neighborhood);
 
 }

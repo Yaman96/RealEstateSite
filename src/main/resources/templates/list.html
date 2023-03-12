@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List of Properties</title>
 </head>
 <body>
-
+<h1>List of Properties</h1>
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Price</th>
+        <th>City</th>
+        <th>District</th>
+        <th>Neighborhood</th>
+    </tr>
+    <tr th:each="property : ${properties}">
+        <td th:text="${property.type}"></td>
+        <td th:text="${property.price}"></td>
+        <td th:text="${property.rooms}"></td>
+        <td th:text="${property.getDistrict()}"></td>
+        <td th:text="${property.getNeighborhood}"></td>
+    </tr>
+</table>
 </body>
 </html>

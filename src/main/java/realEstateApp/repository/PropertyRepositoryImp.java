@@ -1,6 +1,5 @@
 package realEstateApp.repository;
 
-import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import realEstateApp.model.Property;
 import org.hibernate.Session;
@@ -60,7 +59,7 @@ public class PropertyRepositoryImp implements PropertyRepository {
     }
 
     @Override
-    public List<Property> findWithFilter(String type, String maxPrice, String minPrice, String city, String district, String neighborhood) {
+    public List<Property> findWithFilter(String type, String maxPrice, String minPrice, String rooms, String district, String neighborhood) {
         try(Session session = hibernate.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Property> query = builder.createQuery(Property.class);
@@ -77,8 +76,8 @@ public class PropertyRepositoryImp implements PropertyRepository {
                 int min = Integer.parseInt(minPrice);
                 predicates.add(builder.ge(root.get("price"), min));
             }
-            if (city != null && !city.isEmpty()) {
-                predicates.add(builder.equal(root.get("city"), city));
+            if (rooms != null && !rooms.isEmpty()) {
+                predicates.add(builder.equal(root.get("rooms"), rooms));
             }
             if (district != null && !district.isEmpty()) {
                 predicates.add(builder.equal(root.get("district"), district));

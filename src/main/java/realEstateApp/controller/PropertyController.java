@@ -1,19 +1,12 @@
 package realEstateApp.controller;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import org.springframework.ui.Model;
 import realEstateApp.Services.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import realEstateApp.model.Property;
-import realEstateApp.model.PropertyType;
-import realEstateApp.repository.HibernateConfig;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,19 +21,19 @@ public class PropertyController {
         return "home";
     }
 
-    @GetMapping("/properties")
-    public String listProperties(@RequestParam(required = false) String type,
-                                 @RequestParam(required = false) String maxPrice,
-                                 @RequestParam(required = false) String minPrice,
-                                 @RequestParam(required = false) String city,
-                                 @RequestParam(required = false) String district,
-                                 @RequestParam(required = false) String neighborhood,
-                                 Model model) {
-        List<Property> properties = propertyService.getWithFilter(type, maxPrice, minPrice, city, district, neighborhood);
-        model.addAttribute("properties", properties);
-        return "list";
-    }
-//
+//    @GetMapping("/properties")
+//    public String listProperties(@RequestParam(required = false) String type,
+//                                 @RequestParam(required = false) String maxPrice,
+//                                 @RequestParam(required = false) String minPrice,
+//                                 @RequestParam(required = false) String rooms,
+//                                 @RequestParam(required = false) String district,
+//                                 @RequestParam(required = false) String neighborhood,
+//                                 Model model) {
+//        List<Property> properties = propertyService.getWithFilter(type, maxPrice, minPrice, rooms, district, neighborhood);
+//        model.addAttribute("properties", properties);
+//        return "list";
+//    }
+
 //    @GetMapping("/properties/{id}")
 //    public String getPropertyDetails(@PathVariable("id") Long id, Model model) {
 //        Property property = new Property(); // propertyService.getById();

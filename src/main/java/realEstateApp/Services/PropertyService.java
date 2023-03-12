@@ -14,6 +14,6 @@ public interface PropertyService {
     void update(Property property);
     void delete(Property property);
     void save(Property property);
-    List<Property> getWithFilter(String type, String maxPrice, String minPrice, String city, String district, String neighborhood);
+    List<Property> getWithFilter(String type, String maxPrice, String minPrice, String rooms, String district, String neighborhood);
     void addNewProperties(File file);
 }

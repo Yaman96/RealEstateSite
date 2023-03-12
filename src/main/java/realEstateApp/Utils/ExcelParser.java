@@ -35,7 +35,7 @@ public class ExcelParser {
             Sheet sheet = workbook.getSheetAt(0);
 
             if (!checkExcelFileColumnOrder(workbook)) {
-                System.out.println("Check columns. Order must be \"id\",\"type\",\"price\",\"city\",\"district\",\"neighborhood\"");
+                System.out.println("Check columns. Order must be \"id\",\"type\",\"price\",\"rooms\",\"district\",\"neighborhood\"");
                 return properties;
             }
             boolean isFirstRow = true;
@@ -49,10 +49,10 @@ public class ExcelParser {
                 Property property = new Property();
                 Iterator<Cell> cellIterator = row.iterator();
 
-                property.setId((int)cellIterator.next().getNumericCellValue());
+                property.setExternalID((int)cellIterator.next().getNumericCellValue());
                 property.setType(PropertyType.valueOf(cellIterator.next().getStringCellValue().toUpperCase()));
                 property.setPrice((int)cellIterator.next().getNumericCellValue());
-                property.setCity(cellIterator.next().getStringCellValue());
+                property.setRooms(cellIterator.next().getStringCellValue());
                 property.setDistrict(cellIterator.next().getStringCellValue());
                 property.setNeighborhood(cellIterator.next().getStringCellValue());
 
@@ -68,7 +68,7 @@ public class ExcelParser {
     }
 
     private static boolean checkExcelFileColumnOrder(XSSFWorkbook workbook) {
-        String[] expectedColumnNames = new String[] {"id","type","price","city","district","neighborhood"};
+        String[] expectedColumnNames = new String[] {"id","type","price","rooms","district","neighborhood"};
         String[] currentColumnNamesArray = new String[6];
         List<String> currentColumnNames = new ArrayList<>();
 
@@ -82,9 +82,5 @@ public class ExcelParser {
 
 
         return Arrays.equals(expectedColumnNames,currentColumnNames.toArray(currentColumnNamesArray));
-    }
-
-    public static void addPropertiesFromExcel(File file) {
-
     }
 }
